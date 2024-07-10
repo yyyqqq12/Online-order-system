@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YQ Restaurant</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    header {
+        background-color: #333;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+        font-size: 2em;
+        margin: auto;
+    }
+
+    #welcome-section {
+        text-align: center;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        width: 80%;
+        max-width: 400px;
+    }
+
+    #welcome-section h2 {
+        margin-bottom: 20px;
+        font-size: 1.5em;
+    }
+
+    #pax-form {
+        text-align: left;
+        margin: auto;
+        width: 80%;
+        max-width: 200px;
+    }
+
+    #pax-form label,
+    #pax-form select,
+    #continue-button {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    #pax-form select {
+        padding: 10px;
+        font-size: 1em;
+        width: 100%;
+        max-width: 200px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+    }
+
+    #continue-button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 1em;
+        border-radius: 4px;
+    }
+
+    #continue-button:hover {
+        background-color: #45a049;
+    }
+</style>
+<body>
+    <header>
+        <h1>YQ Restaurant</h1>
+    </header>
+
+    <section id="welcome-section">
+        <h2>Welcome to YQ Restaurant</h2>
+        <form id="pax-form">
+            <label for="pax">Number of people (Pax):</label>
+            <select id="pax" name="pax">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <button type="button" id="continue-button">Continue</button>
+        </form>
+    </section>
+
+    <script>
+        document.getElementById('continue-button').addEventListener('click', function() {
+            const pax = document.getElementById('pax').value;
+            localStorage.setItem('pax', pax);
+            const urlParams = new URLSearchParams(window.location.search);
+            const tableId = urlParams.get('table_id');
+
+            if (tableId) {
+                window.location.href = `CusMenuV1.php?table_id=${tableId}&pax=${pax}`;
+            } else {
+                console.error("Table ID not found in the URL");
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tableId = urlParams.get('table_id');
+
+            if (!tableId) {
+                console.error("Table ID not found in the URL");
+            }
+        });
+    </script>
+</body>
+</html>
